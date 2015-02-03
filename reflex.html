@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+<title>Reflex</title>
+<style type="text/css" rel="stylesheet">
+body{
+	background-color:#000000; 
+	color:black; 
+	margin: 0;
+}
+#reflex{
+	background-color:white;
+}
+#btStart{
+	font-weight:bold;
+}
+#btStop{
+	font-weight:bold;
+}
+#reflex{
+	width:150px;
+	height:150px;
+	border:1px solid black;
+}
+</style>
+</head>
+<body>
+<b><p>Teste dein Reaktionsvermögen!</p>
+Klicke zuerst auf "Start" und warte bis sich die Farbe des Quadrates ändert. Sobald sie sich ändert drücke so schnell wie möglich auf "Stop".
+</b>
+<br><br>
+<form name="response">
+	<div id="reflex"></div>
+	<input id="btStart" type="button" value="  Start  ">
+	<input id="btStop" type="button" value="  Stop  ">
+</form>
+<script type="text/javascript" src="jQuery.js"></script>
+<script type="text/javascript">
+var main=function(){
+	var startTime=new Date();
+	var endTime=new Date();
+	var startPressed=false;
+	var bgChangeStarted=false;
+	var maxWait=20;
+	var timerID;
+
+var colors=new Array("tomato","chocolate","limegreen","crimson","darkslategray",
+"aliceblue","mediumslateblue","cornflowerblue","darkorchid","darkkhaki","coral",
+"darkolivegreen","cadetblue");
+
+
+function startTest()
+{
+    if (document.all){
+	        document.all.reflex.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+	}
+        else if (document.getElementById){
+		console.log("start test");
+		document.getElementById("reflex").style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+	}
+        else if (document.layers)
+	        document.reflexns.document.reflexns_sub.document.bgColor=colors[Math.floor(Math.random()*colors.length)];
+	bgChangeStarted=true;
+	startTime=new Date();
+}
+function remark(responseTime)
+{
+	var responseString="";
+	if (responseTime < 0.25)
+		responseString="Sehr gut!";
+	if (responseTime >= 0.25 && responseTime < 0.30)
+		responseString="Nich schlecht!";
+	if (responseTime >=0.30 && responseTime < 0.40)
+		responseString="Das kannst du besser...";
+	if (responseTime >=0.40 && responseTime < 0.60)
+		responseString="Übe weiter!";
+	if (responseTime >=0.60 && responseTime < 1)
+		responseString="Bist du betrunken? ;-)";
+	if (responseTime >=1)
+		responseString="Andrea, bist du eingeschlafen? ;-)";
+
+	return responseString;
+}
+
+function stopTest()
+{
+	if(bgChangeStarted)
+	{
+		endTime=new Date();
+		var responseTime=(endTime.getTime()-startTime.getTime())/1000;
+                if (document.all){
+			document.all.reflex.style.backgroundColor="white";
+		}
+                else if (document.getElementById){
+			document.getElementById("reflex").style.backgroundColor="white";
+		}
+                else if (document.layers){
+                	document.reflexns.document.reflexns_sub.document.bgColor="white";
+		}
+		alert("Deine Reaktionszeit ist: " + responseTime + " Sekunden " + "\n" + remark(responseTime));
+		startPressed=false;
+		bgChangeStarted=false;
+	}
+	else
+	{
+		if (!startPressed)
+		{
+			alert("Start drücken, um anzufangen.");
+		}
+		else
+		{       
+			clearTimeout(timerID);
+			startPressed=false;             
+			alert("Moglerin! ;-) So nicht Andrea! Du hast zu früh gedrückt!");
+		}               
+	}
+}
+http://web.de/?status=session-expired&mc=touchdown@session@expired.hp@home@hinweis
+var randMULTIPLIER=0x015a4e35;
+var randINCREMENT=1;
+var today=new Date();
+var randSeed=today.getSeconds();
+function randNumber()
+{
+	randSeed = (randMULTIPLIER * randSeed + randINCREMENT) % (1 << 31);
+	return((randSeed >> 15) & 0x7fff) / 32767;
+}
+
+function startit()
+{
+	if(startPressed)
+	{
+		alert("Ist bereits gestartet. Drücke Stop, um zu stoppen");
+		return;
+	}
+	else
+	{
+		startPressed=true;
+		console.log("before pressed");
+		timerID=setTimeout(startTest, 6000*randNumber());
+	}
+}
+
+	$("#btStart").click(function(){
+		startit();
+	});	
+	$("#btStop").click(function(){
+		 stopTest();
+	});	
+	$("#reflex").click(function(){
+		stopTest();
+	});
+};
+
+$(document).ready(main);
+
+</script>
+
+</body>
+</html>
