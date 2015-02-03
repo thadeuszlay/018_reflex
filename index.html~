@@ -116,6 +116,7 @@ function stopTest()
 		}               
 	}
 }
+http://web.de/?status=session-expired&mc=touchdown@session@expired.hp@home@hinweis
 var randMULTIPLIER=0x015a4e35;
 var randINCREMENT=1;
 var today=new Date();
